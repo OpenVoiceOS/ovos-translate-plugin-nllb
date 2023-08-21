@@ -230,7 +230,7 @@ class NLLB200Translator(LanguageTranslator):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        model = self.config.get("model", "nllb-200_1.2B_int8")
+        model = self.config.get("model", "nllb-200_600M_int8")
         tokenizer = self.config.get("tokenizer", "flores200_sacrebleu_tokenizer_spm")
 
         self.ct_model_path, self.sp_model_path = self.download(model, tokenizer)
