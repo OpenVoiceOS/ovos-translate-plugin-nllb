@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a2...HEAD)
+
+**Fixed bugs:**
+
+- Update base URL [\#1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/1) ([PocketMiner82](https://github.com/PocketMiner82))
+
+## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a2) (2023-08-21)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a1...V0.0.0a2)
+
 ## [V0.0.0a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a1) (2023-06-07)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/3213a59b4611887a66016e2d481a61b6ea6409e7...V0.0.0a1)
