@@ -14,7 +14,7 @@ from ovos_utils.xdg_utils import xdg_data_home
 
 
 class NLLB200Translator(LanguageTranslator):
-    __base_url = "https://pretrained-nmt-models.s3.us-west-2.amazonaws.com/CTranslate2/nllb"
+    __base_url = "https://pretrained-nmt-models.s3.us-west-004.backblazeb2.com/CTranslate2/nllb"
 
     MODEL_URLS = {
         "nllb-200_600M_int8": f"{__base_url}/nllb-200_600M_int8_ct2.zip",
