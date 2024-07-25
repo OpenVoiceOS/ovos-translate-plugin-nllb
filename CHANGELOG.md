@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a2...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a3...HEAD)
+
+**Implemented enhancements:**
+
+- feat/more\_models [\#2](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/2) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a3](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a3) (2024-04-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a2...V0.0.0a3)
 
 **Fixed bugs:**
 
