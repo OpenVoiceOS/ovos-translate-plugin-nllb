@@ -296,10 +296,7 @@ class NLLB200Translator(LanguageTranslator):
 
         tokenizer_path = f"{base_path}/{tokenizer}.model"
 
-        if os.path.isdir(model):
-            model_path = model
-        else:
-            model_path = f"{base_path}/{model}"
+        model_path = model if os.path.isdir(model) else f"{base_path}/{model}"
 
         if not os.path.isfile(tokenizer_path):
             cls._download_file(cls.MODEL_URLS[tokenizer], tokenizer_path)
