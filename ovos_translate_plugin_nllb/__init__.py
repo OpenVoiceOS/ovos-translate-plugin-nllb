@@ -1,19 +1,22 @@
 import os
 import shutil
-from typing import Union, List
+from typing import Union, List, Set
 from zipfile import ZipFile
 
 import ctranslate2
 import requests
 import sentencepiece as spm
-from ovos_plugin_manager.templates.language import (
-    LanguageTranslator
-)
+from huggingface_hub import hf_hub_download
+from ovos_plugin_manager.templates.language import LanguageTranslator
 from ovos_utils.log import LOG
 from ovos_utils.xdg_utils import xdg_data_home
 
 
 class NLLB200Translator(LanguageTranslator):
+    """
+    NLLB200Translator is a translation service that uses NLLB-200 models to translate text between different languages.
+    """
+
     __base_url = "https://pretrained-nmt-models.s3.us-west-004.backblazeb2.com/CTranslate2/nllb"
 
     MODEL_URLS = {
@@ -21,6 +24,10 @@ class NLLB200Translator(LanguageTranslator):
         "nllb-200_1.2B_int8": f"{__base_url}/nllb-200_1.2B_int8_ct2.zip",
         "nllb-200-3.3B-int8": f"{__base_url}/nllb-200_3.3B_int8_ct2.zip",
         "flores200_sacrebleu_tokenizer_spm": f"{__base_url}/flores200_sacrebleu_tokenizer_spm.model"
+    }
+    HF_MODELS = {
+        "nllb-200-distilled-1.3B-ct2-int8": "OpenNMT/nllb-200-distilled-1.3B-ct2-int8",
+        "nllb-200-3.3B-ct2-int8": "OpenNMT/nllb-200-3.3B-ct2-int8"
     }
     # convert BCP 47 to primary language subtag
     LANG_MAP = {
@@ -229,11 +236,15 @@ class NLLB200Translator(LanguageTranslator):
     }
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize the NLLB200Translator with the specified configuration.
+        """
         super().__init__(*args, **kwargs)
         model = self.config.get("model", "nllb-200_600M_int8")
         tokenizer = self.config.get("tokenizer", "flores200_sacrebleu_tokenizer_spm")
 
-        self.ct_model_path, self.sp_model_path = self.download(model, tokenizer)
+        self.ct_model_path = self.download(model)
+        self.sp_model_path = self.download_tokenizer(tokenizer)
         self.beam_size = self.config.get("beam_size", 4)
         self.device = self.config.get("device", "cpu")
         # Load the source SentecePiece model
@@ -243,7 +254,17 @@ class NLLB200Translator(LanguageTranslator):
         self.translator = ctranslate2.Translator(self.ct_model_path, self.device)
 
     @staticmethod
-    def _download_file(url, local_filename):
+    def _download_file(url: str, local_filename: str) -> str:
+        """
+        Download a file from a given URL and save it locally.
+
+        Args:
+            url (str): The URL of the file to download.
+            local_filename (str): The local path where the file should be saved.
+
+        Returns:
+            str: The local file path of the downloaded file.
+        """
         with requests.get(url, stream=True) as r:
             r.raise_for_status()
             with open(local_filename, 'wb') as f:
@@ -252,17 +273,51 @@ class NLLB200Translator(LanguageTranslator):
         return local_filename
 
     @classmethod
-    def download(cls, model="nllb-200_600M_int8",
-                 tokenizer="flores200_sacrebleu_tokenizer_spm"):
+    def _download_from_hf(cls, repo_id: str) -> str:
+        if "facebook" in cls.HF_MODELS[repo_id]:
+            files = ["config.json", "shared_vocabulary.json", "model.bin"]
+        for f in files:
+            p = hf_hub_download(repo_id=cls.HF_MODELS[repo_id], filename=f)
+            model = os.path.dirname(p)
+        return model
 
+    @classmethod
+    def download_tokenizer(cls, tokenizer: str = "flores200_sacrebleu_tokenizer_spm") -> str:
+        """
+        Download and extract the specified tokenizer.
+
+        Args:
+            tokenizer (str, optional): The tokenizer to download. Defaults to "flores200_sacrebleu_tokenizer_spm".
+
+        Returns:
+            str: Path to the downloaded model.
+        """
+        base_path = f"{xdg_data_home()}/ctranslate2"
+        os.makedirs(base_path, exist_ok=True)
+        tokenizer_path = f"{base_path}/{tokenizer}.model"
+        if not os.path.isfile(tokenizer_path):
+            cls._download_file(cls.MODEL_URLS[tokenizer], tokenizer_path)
+        return tokenizer_path
+
+    @classmethod
+    def download(cls, model: str = "nllb-200_600M_int8") -> str:
+        """
+        Download and extract the specified model.
+
+        Args:
+            model (str, optional): The model to download. Defaults to "nllb-200_600M_int8".
+
+        Returns:
+            str: Path to the downloaded model.
+        """
         base_path = f"{xdg_data_home()}/ctranslate2"
         os.makedirs(base_path, exist_ok=True)
 
-        tokenizer_path = f"{base_path}/{tokenizer}.model"
-        model_path = f"{base_path}/{model}"
+        model_path = model if os.path.isdir(model) else f"{base_path}/{model}"
 
-        if not os.path.isfile(tokenizer_path):
-            cls._download_file(cls.MODEL_URLS[tokenizer], tokenizer_path)
+        if model in cls.HF_MODELS:
+            model_path = cls._download_from_hf(model)
+            return model_path
 
         if not os.path.isdir(model_path):
             if model_path.startswith("http"):
@@ -272,14 +327,12 @@ class NLLB200Translator(LanguageTranslator):
 
             zipped = f"{base_path}/{url.split('/')[-1]}"
             if not os.path.isfile(zipped):
-                LOG.info(f"downloading {url}")
+                LOG.info(f"Downloading {url}")
                 cls._download_file(url, zipped)
 
-            # TODO - extract zip + delete it
-            # loading the temp.zip and creating a zip object
             with ZipFile(zipped, 'r') as z:
                 tmp = f"{base_path}/.extracted"
-                LOG.debug(f"unzipping downloaded model to {model_path}")
+                LOG.debug(f"Unzipping downloaded model to {model_path}")
                 # Extracting all the members of the zip
                 # into a specific location.
                 z.extractall(path=tmp)
@@ -287,25 +340,22 @@ class NLLB200Translator(LanguageTranslator):
                 shutil.move(dl_path, model_path)
                 shutil.rmtree(tmp)
 
-            LOG.debug(f"deleting temporary zip file: {zipped}")
+            LOG.debug(f"Deleting temporary zip file: {zipped}")
             os.remove(zipped)
 
-        return model_path, tokenizer_path
+        return model_path
 
-    def translate(self,
-                  text: Union[str, List[str]],
-                  target: str = "",
-                  source: str = "") -> Union[str, List[str]]:
+    def translate(self, text: Union[str, List[str]], target: str = "", source: str = "") -> Union[str, List[str]]:
         """
-        NLLB200 translate text(s) into the target language.
+        Translate text(s) into the target language using the NLLB200 model.
 
         Args:
-            text (Union[str, List[str]]): sentence(s) to translate
-            target (str, optional): target langcode. Defaults to "".
-            source (str, optional): source langcode. Defaults to "".
+            text (Union[str, List[str]]): The sentence(s) to translate.
+            target (str, optional): The target language code. Defaults to "".
+            source (str, optional): The source language code. Defaults to "".
 
         Returns:
-            Union[str, List[str]]: translation(s)
+            Union[str, List[str]]: The translated sentence(s).
         """
         if isinstance(text, str):
             utterances = [text]
@@ -319,13 +369,13 @@ class NLLB200Translator(LanguageTranslator):
         if source not in self.LANG_MAP:
             lang = mapping.get(source) or mapping.get(source.split("-")[0])
             if not lang:
-                raise ValueError(f"invalid source language: {source}")
+                raise ValueError(f"Invalid source language: {source}")
             src_lang = lang
 
         if target not in self.LANG_MAP:
             lang = mapping.get(target) or mapping.get(target.split("-")[0])
             if not lang:
-                raise ValueError(f"invalid target language: {target}")
+                raise ValueError(f"Invalid target language: {target}")
             tgt_lang = lang
 
         source_sents = [sent.strip() for sent in utterances]
@@ -335,35 +385,38 @@ class NLLB200Translator(LanguageTranslator):
         source_sents_subworded = self.sp.encode(source_sents, out_type=str)
         source_sents_subworded = [sent + ["</s>", src_lang] for sent in source_sents_subworded]
 
-        # Translate the source sentences
-        results = self.translator.translate_batch(source_sents_subworded, batch_type="tokens", max_batch_size=2024,
-                                                  beam_size=self.beam_size, target_prefix=target_prefix)
+        results = self.translator.translate_batch(
+            source_sents_subworded,
+            batch_type="tokens",
+            max_batch_size=2024,
+            beam_size=self.beam_size,
+            target_prefix=target_prefix
+        )
 
         translations = [translation.hypotheses[0] for translation in results]
-
-        # Desubword the target sentences
         translations_desubword = [sent[len(tgt_lang):].strip() for sent in self.sp.decode(translations)]
+
         if len(utterances) == 1:
             return translations_desubword[0]
         return translations_desubword
 
     @property
-    def available_languages(self) -> set:
+    def available_languages(self) -> Set[str]:
         """
-        The available target languages with the service
+        Get the available target languages with the service.
 
         Returns:
-            set: languages as a set of langcodes
+            Set[str]: A set of language codes.
         """
         return set(self.LANG_MAP.values())
 
     @property
-    def source_languages(self) -> set:
+    def source_languages(self) -> Set[str]:
         """
-        The available source languages with the service
+        Get the available source languages with the service.
 
         Returns:
-            set: languages as a set of langcodes
+            Set[str]: A set of language codes.
         """
         return set(self.LANG_MAP.values())
 
@@ -372,12 +425,12 @@ if __name__ == "__main__":
     src = "es"
     tgt = "en-us"
 
-    tx = NLLB200Translator()
+    tx = NLLB200Translator(config={"model": "nllb-200-3.3B-int8",
+                                   "beam_size": 5,
+                                   "device": "cuda"})
 
     utts = ["Hola Mundo"]
-
     print("Translations:", tx.translate(utts, tgt, src))
 
     utts = "hello world"
-
     print("Translations:", tx.translate(utts, src, tgt))
