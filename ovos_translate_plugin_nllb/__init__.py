@@ -1,15 +1,15 @@
-import os
-import shutil
-from typing import Union, List, Set
-from zipfile import ZipFile
-
 import ctranslate2
+import os
 import requests
 import sentencepiece as spm
+import shutil
 from huggingface_hub import hf_hub_download
 from ovos_plugin_manager.templates.language import LanguageTranslator
+from ovos_utils import classproperty
 from ovos_utils.log import LOG
 from ovos_utils.xdg_utils import xdg_data_home
+from typing import Union, List, Set
+from zipfile import ZipFile
 
 
 class NLLB200Translator(LanguageTranslator):
@@ -400,25 +400,27 @@ class NLLB200Translator(LanguageTranslator):
             return translations_desubword[0]
         return translations_desubword
 
-    @property
-    def available_languages(self) -> Set[str]:
+    @classproperty
+    def available_languages(cls) -> Set[str]:
         """
         Get the available target languages with the service.
 
         Returns:
             Set[str]: A set of language codes.
         """
-        return set(self.LANG_MAP.values())
+        return set(cls.LANG_MAP.values())
 
-    @property
-    def source_languages(self) -> Set[str]:
+    def supported_translations(self, source_lang: str) -> Set[str]:
         """
-        Get the available source languages with the service.
+        Get the set of target languages to which the source language can be translated.
+
+        Args:
+            source_lang (Optional[str]): The source language code.
 
         Returns:
-            Set[str]: A set of language codes.
+            Set[str]: A set of language codes that the source language can be translated to.
         """
-        return set(self.LANG_MAP.values())
+        return self.available_languages
 
 
 if __name__ == "__main__":
