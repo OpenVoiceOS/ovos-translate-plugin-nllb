@@ -1,3 +1,4 @@
 ctranslate2
 sentencepiece
-ovos-plugin-manager>=0.0.1a2
+ovos-plugin-manager>=1.0.0,<3.0.0
+huggingface_hub
