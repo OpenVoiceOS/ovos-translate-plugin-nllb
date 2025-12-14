@@ -1,8 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/HEAD)
+## [0.0.0a5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.0a5) (2025-12-14)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a3...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a4...0.0.0a5)
+
+**Merged pull requests:**
+
+- fix: automations [\#5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/5) ([JarbasAl](https://github.com/JarbasAl))
+- Update requirements.txt [\#4](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/4) ([JarbasAl](https://github.com/JarbasAl))
+- fix: compatibility with ovos-plugin-manager 1.X.X [\#3](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/3) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a4](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a4) (2024-07-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a3...V0.0.0a4)
 
 **Implemented enhancements:**
 
