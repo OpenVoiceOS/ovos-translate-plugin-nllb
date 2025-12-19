@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.2a2](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a2) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a1...0.0.2a2)
+
+**Merged pull requests:**
+
+- chore\(deps\): update actions/setup-python action to v6 [\#12](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/12) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a1) (2025-12-18)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.1...0.0.2a1)
