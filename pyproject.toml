@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovos-translate-plugin-nllb"
+dynamic = ["version"]
+description = "OVOS translation module for No Language Left Behind"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [
+    { name = "jarbasAi", email = "jarbasai@mailfence.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Text Processing :: Linguistic",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "ctranslate2",
+    "sentencepiece",
+    "ovos-plugin-manager>=1.0.0,<3.0.0",
+    "huggingface_hub",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+[project.urls]
+Homepage = "https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb"
+
+[project.entry-points."opm.lang.translate"]
+"ovos-translate-plugin-nllb" = "ovos_translate_plugin_nllb:NLLB200Translator"
+
+[tool.setuptools.dynamic]
+version = { attr = "ovos_translate_plugin_nllb.version.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ovos_translate_plugin_nllb*"]
+
+[tool.setuptools.package-data]
+"*" = ["**"]
