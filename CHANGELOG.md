@@ -1,38 +1,44 @@
 # Changelog
 
-## [0.0.0a5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.0a5) (2025-12-14)
+## [0.0.2a5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a5) (2026-08-01)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a4...0.0.0a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a4...0.0.2a5)
 
 **Merged pull requests:**
 
-- fix: automations [\#5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/5) ([JarbasAl](https://github.com/JarbasAl))
-- Update requirements.txt [\#4](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/4) ([JarbasAl](https://github.com/JarbasAl))
-- fix: compatibility with ovos-plugin-manager 1.X.X [\#3](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/3) ([JarbasAl](https://github.com/JarbasAl))
+- docs: rewrite README in Simplified Technical English [\#16](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/16) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a4](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a4) (2024-07-25)
+## [0.0.2a4](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a4) (2026-06-16)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a3...V0.0.0a4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a3...0.0.2a4)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
-- feat/more\_models [\#2](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/2) ([JarbasAl](https://github.com/JarbasAl))
+- chore: add missing shared CI workflows [\#14](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/14) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a3](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a3) (2024-04-04)
+## [0.0.2a3](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a3) (2025-12-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a2...V0.0.0a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a2...0.0.2a3)
 
-**Fixed bugs:**
+**Merged pull requests:**
 
-- Update base URL [\#1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/1) ([PocketMiner82](https://github.com/PocketMiner82))
+- chore\(deps\): update dependency python to 3.14 [\#8](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/8) ([renovate[bot]](https://github.com/apps/renovate))
 
-## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a2) (2023-08-21)
+## [0.0.2a2](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a2) (2025-12-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/V0.0.0a1...V0.0.0a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a1...0.0.2a2)
 
-## [V0.0.0a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/V0.0.0a1) (2023-06-07)
+**Merged pull requests:**
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/3213a59b4611887a66016e2d481a61b6ea6409e7...V0.0.0a1)
+- chore\(deps\): update actions/setup-python action to v6 [\#12](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/12) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a1) (2025-12-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.1...0.0.2a1)
+
+**Merged pull requests:**
+
+- chore: Configure Renovate [\#7](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/7) ([renovate[bot]](https://github.com/apps/renovate))
 
 
 
