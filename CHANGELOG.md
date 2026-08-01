@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.2a5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a5) (2026-08-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a4...0.0.2a5)
+
+**Merged pull requests:**
+
+- docs: rewrite README in Simplified Technical English [\#16](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/16) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.2a4](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a4) (2026-06-16)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a3...0.0.2a4)
