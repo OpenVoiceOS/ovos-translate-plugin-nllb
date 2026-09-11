@@ -17,7 +17,7 @@ The table below lists the available models for the NLLB-200 translator.
 | flores200_sacrebleu_tokenizer_spm | CTranslate2                                               | Tokenizer model                      |
 | nllb-200_600M_int8                | CTranslate2                                               | 600M parameter model, int8 quantized |
 | nllb-200_1.2B_int8                | CTranslate2                                               | 1.2B parameter model, int8 quantized |
-| nllb-200_3.3B_int8                | CTranslate2                                               | 3.3B parameter model, int8 quantized |
+| nllb-200-3.3B-int8                | CTranslate2                                               | 3.3B parameter model, int8 quantized |
 | nllb-200-distilled-1.3B-ct2-int8  | HuggingFace Hub: OpenNMT/nllb-200-distilled-1.3B-ct2-int8 | 1.3B distilled model, int8 quantized |
 | nllb-200-3.3B-ct2-int8            | HuggingFace Hub: OpenNMT/nllb-200-3.3B-ct2-int8           | 3.3B model, int8 quantized           |
 
