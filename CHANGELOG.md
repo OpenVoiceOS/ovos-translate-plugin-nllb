@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.3a1) (2026-09-11)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a5...0.0.3a1)
+
+**Merged pull requests:**
+
+- fix: correct nllb-200\_3.3B\_int8 model key typo in README [\#18](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/18) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.2a5](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.2a5) (2026-08-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a4...0.0.2a5)
