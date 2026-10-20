@@ -9,7 +9,7 @@ from ovos_utils import classproperty
 from ovos_utils.log import LOG
 from ovos_utils.xdg_utils import xdg_data_home
 from typing import Union, List, Set
-from zipfile import ZipFile
+from zipfile import ZipFile, is_zipfile
 
 
 class NLLB200Translator(LanguageTranslator):
@@ -265,11 +265,15 @@ class NLLB200Translator(LanguageTranslator):
         Returns:
             str: The local file path of the downloaded file.
         """
+        # Write to a temporary name and rename only when complete, so an
+        # interrupted download never leaves a truncated file at the final path.
+        partial = f"{local_filename}.part"
         with requests.get(url, stream=True) as r:
             r.raise_for_status()
-            with open(local_filename, 'wb') as f:
+            with open(partial, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
+        os.replace(partial, local_filename)
         return local_filename
 
     @classmethod
@@ -326,12 +330,16 @@ class NLLB200Translator(LanguageTranslator):
                 url = cls.MODEL_URLS[model]
 
             zipped = f"{base_path}/{url.split('/')[-1]}"
+            if os.path.isfile(zipped) and not is_zipfile(zipped):
+                LOG.warning(f"Removing corrupt model archive: {zipped}")
+                os.remove(zipped)
             if not os.path.isfile(zipped):
                 LOG.info(f"Downloading {url}")
                 cls._download_file(url, zipped)
 
             with ZipFile(zipped, 'r') as z:
                 tmp = f"{base_path}/.extracted"
+                shutil.rmtree(tmp, ignore_errors=True)
                 LOG.debug(f"Unzipping downloaded model to {model_path}")
                 # Extracting all the members of the zip
                 # into a specific location.
