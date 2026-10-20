@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.4a1) (2026-10-20)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.3a1...0.0.4a1)
+
+**Merged pull requests:**
+
+- fix: recover from an interrupted model download [\#20](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/pull/20) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.3a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/tree/0.0.3a1) (2026-09-11)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb/compare/0.0.2a5...0.0.3a1)
